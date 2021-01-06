@@ -1,6 +1,10 @@
 "use strict";
-/* Basic JS/CSS Accordion (c) cwsoft */
+/* Basic JS/CSS Accordion (c) cwsoft. Published under MIT license. */
 
+/**
+ * Initilizes the accordion using userOptions or default options.
+ * @param {object} userOptions Object with user defined options
+ */
 function initializeAccordion(userOptions) {
   // Accordion default configuration settings.
   const defaults = {
@@ -15,35 +19,18 @@ function initializeAccordion(userOptions) {
   };
 
   // Merge user options with defaults.
-  const options = mergeUserOptions(defaults, userOptions);
+  const options = _mergeUserOptions(defaults, userOptions);
 
   // Setup entire accordion and quit.
-  return setup();
+  return _setup();
 
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  // + Helper: Merge optional userOptions into default settings.
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  function mergeUserOptions(defaults, userOptions) {
-    // Short circuit in case no valid config object is defined.
-    if (userOptions === null || typeof userOptions !== "object") {
-      return defaults;
-    }
-
-    // Overwrite default with config if key exists and types match.
-    for (let key in userOptions) {
-      if (key in defaults) {
-        if (typeof defaults[key] === typeof userOptions[key]) {
-          defaults[key] = userOptions[key];
-        }
-      }
-    }
-    return defaults;
-  }
-
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  // + Helper: Setup accordion with user defined configuration options.
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  function setup() {
+  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  //+ Internal helper functions defined below (not part of the public API).
+  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  /**
+   * Setup accordion script based on user defined options.
+   */
+  function _setup() {
     // Extract accordion header elements from document.
     const accHeaderSelector = options.accContainerId + " " + options.accHeaderElement;
     const accHeaders = document.querySelectorAll(accHeaderSelector);
@@ -56,7 +43,7 @@ function initializeAccordion(userOptions) {
     }
 
     // Work out valid start item.
-    const accStartItem = getStartItem(accItems);
+    const accStartItem = _getStartItem(accItems);
 
     // Initialize accordion (set default classes, add event handler).
     let accItem = 1;
@@ -73,9 +60,9 @@ function initializeAccordion(userOptions) {
 
       // Add click event listener to all items.
       accHeader.addEventListener("click", (event) => {
-        autoCollapseExpandedItems(event);
-        toggleItemState(event);
-        scrollIntoView(event);
+        _autoCollapseExpandedItems(event);
+        _toggleItemState(event);
+        _scrollIntoView(event);
       });
 
       accItem++;
@@ -84,8 +71,33 @@ function initializeAccordion(userOptions) {
     return { success: true };
   }
 
-  // Work out valid startItem defined via optional ?item=N get parameter or user options.
-  function getStartItem(nbrItems) {
+  /**
+   * Merges optional userOption with defaults.
+   * @param {object} defaults Object with default options.
+   * @param {*} userOptions Object with userOptions.
+   */
+  function _mergeUserOptions(defaults, userOptions) {
+    // Short circuit in case no valid config object is defined.
+    if (userOptions === null || typeof userOptions !== "object") {
+      return defaults;
+    }
+
+    // Overwrite default with config if key exists and types match.
+    for (let key in userOptions) {
+      if (key in defaults) {
+        if (typeof defaults[key] === typeof userOptions[key]) {
+          defaults[key] = userOptions[key];
+        }
+      }
+    }
+    return defaults;
+  }
+
+  /**
+   * Work out valid startItem defined in userOptions or as optional ?item=N get parameter.
+   * @param {number} nbrItems Total number of accordion items on the page.
+   */
+  function _getStartItem(nbrItems) {
     // Check if a start item was defined via optional ?item=N get parameter.
     let matches = new RegExp("[?&]item=([^&#]*)").exec(window.location.href);
     let startItem = matches !== null ? parseInt(matches[1]) || options.startItem : options.startItem;
@@ -103,8 +115,11 @@ function initializeAccordion(userOptions) {
     return startItem;
   }
 
-  // Collapse previous expanded items depending on user settings.
-  function autoCollapseExpandedItems(event) {
+  /**
+   * Collapse previous expanded items depending on user settings.
+   * @param {event} event Element which triggered the click event.
+   */
+  function _autoCollapseExpandedItems(event) {
     if (options.allowMultipleExpandedItems) return;
 
     // Extract expanded headers and data-item attribute of clicked item.
@@ -123,8 +138,11 @@ function initializeAccordion(userOptions) {
     });
   }
 
-  // Toggle visibility state of actual clicked item depending on user settings.
-  function toggleItemState(event) {
+  /**
+   * Toggle visibility state of actual clicked item depending on user settings.
+   * @param {event} event Element which triggered the click event.
+   */
+  function _toggleItemState(event) {
     if (!options.allowCollapsingItemsOnClick && event.target.classList.contains("expanded")) {
       return;
     }
@@ -132,8 +150,11 @@ function initializeAccordion(userOptions) {
     event.target.classList.toggle("expanded");
   }
 
-  // Scroll viewport to actual clicked item depending on user settings.
-  function scrollIntoView(event) {
+  /**
+   * Scroll viewport to actual clicked item depending on user settings.
+   * @param {event} event Element which triggered the click event.
+   */
+  function _scrollIntoView(event) {
     if (options.scrollIntoView) {
       event.target.scrollIntoView();
     }
