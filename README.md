@@ -2,8 +2,6 @@
 
 Basic Accordion script without dependencies. Requires a "modern" browser (2016+) with CSS3 and ES5/6 support. A live demo is available at [http://die-laderin.de](http://die-laderin.de/kultur.html).
 
-![Screenshot](./assets/screenshot.jpg)
-
 ## Installation
 
 Simply clone this repo or just copy the CSS and JS files of interest to your computer to start. Customization can be done by editing the relevant CSS and JS files. If you want to contribute or to heavily customize the script to your needs, consider installing the Node package `SASS` in conjunction with an editor like VS Code. Details about setting up a free development environment for Windows can be found in my [WDEV](https://github.com/cwsoft/WDEV) repo at Github.
