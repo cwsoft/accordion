@@ -1,0 +1,4 @@
+// Generate main.css from SASS partial files.
+// Requires Node module "dart-sass" v1.30.0 or later to work.
+@use "partials/site";
+@use "partials/accordion";

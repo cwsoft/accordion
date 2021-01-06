@@ -1,0 +1,82 @@
+@use "colors";
+
+// Accordion variables (must reflect accordion.js).
+$accContainerId: "accordion"; // ID of the outer container.
+$accHeaderElement: "h2"; // Element used for accordion headings.
+$accContentElement: "div"; // Container element used for according content.
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   + Styles for the accordion plugin.
+   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+##{$accContainerId} {
+  #{$accHeaderElement} {
+    cursor: pointer;
+    margin: 1rem 0 0 0;
+    padding: 0 0 0 0.5em;
+    border: 0;
+    outline: 0 none;
+    line-height: 2;
+    font-family: "Open-Sans", Verdana, sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    background-color: colors.$accent;
+    color: colors.$white;
+
+    &.collapsed {
+      border: 1px solid colors.$light-grey;
+      background-color: colors.$light;
+      color: colors.$medium-grey;
+    }
+
+    &[data-item="1"] {
+      margin-top: 1.8rem;
+    }
+
+    &.expanded::before {
+      content: "▾ ";
+    }
+
+    &.collapsed::before {
+      content: "▸ ";
+    }
+  }
+
+  #{$accHeaderElement} + #{$accContentElement} {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    padding: 0.6em 1.4em;
+    border: 1px solid colors.$light-grey;
+    color: colors.$dark;
+    font-family: Verdana, sans-serif;
+    line-height: 1.6;
+    hyphens: auto;
+    animation: fadeIn 500ms;
+  }
+
+  #{$accHeaderElement}.collapsed + #{$accContentElement} {
+    display: none;
+  }
+
+  #{$accHeaderElement} + #{$accContentElement} {
+    a {
+      color: colors.$accent;
+      text-decoration: none;
+      border-bottom: 1px dotted;
+    }
+
+    a:hover,
+    a:focus {
+      border-bottom: 1px solid;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

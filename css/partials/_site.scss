@@ -1,0 +1,31 @@
+@use "colors";
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   + Basic site layout.
+   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+body {
+  background: colors.$white;
+  text-align: center;
+  font-family: Verdana, sans-serif;
+  font-size: 1em;
+  line-height: 1.6;
+  color: colors.$dark;
+  hyphens: auto;
+}
+
+.wrapper {
+  margin: 5rem auto;
+  max-width: 900px;
+  width: 80vw;
+  height: 80vh;
+  padding: 0 2rem;
+  text-align: left;
+  border: colors.$light-grey solid 1px;
+  background: colors.$white;
+  box-shadow: colors.$light-grey 0 0.5rem 2rem 0;
+}
+
+.wrapper:after {
+  content: "";
+  display: block;
+  clear: both;
+}
