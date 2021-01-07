@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "ESNext",
-    "strict": false,
-    "noImplicitAny": false,
+    "module": "ES6",
+    "strict": true,
+    "noImplicitAny": true,
     "sourceMap": false,
     "removeComments": false,
     "noEmit": false,

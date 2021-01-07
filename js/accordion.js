@@ -2,7 +2,8 @@
 /* Basic JS/CSS Accordion (c) cwsoft. Published under MIT license. */
 /**
  * Initilizes the accordion using userOptions or default options.
- * @param {object} userOptions Object with user defined options
+ * @param {IUserOptions} userOptions Object with user defined options
+ * @returns {boolean} Returns true on sucess, otherwise false
  */
 function initializeAccordion(userOptions) {
   // Accordion default configuration settings.
@@ -25,6 +26,7 @@ function initializeAccordion(userOptions) {
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   /**
    * Setup accordion script based on user defined options.
+   * @returns {boolean} Returns true on sucess, otherwise false
    */
   function _setup() {
     // Extract accordion header elements from document.
@@ -51,18 +53,20 @@ function initializeAccordion(userOptions) {
       }
       // Add click event listener to all items.
       accHeader.addEventListener("click", (event) => {
-        _autoCollapseExpandedItems(event);
-        _toggleItemState(event);
-        _scrollIntoView(event);
+        const clickedElement = event.target;
+        _autoCollapseExpandedItems(clickedElement);
+        _toggleItemState(clickedElement);
+        _scrollIntoView(clickedElement);
       });
       accItem++;
     });
-    return { success: true };
+    return true;
   }
   /**
    * Merges optional userOption with defaults.
-   * @param {object} defaults Object with default options.
-   * @param {object} userOptions Object with userOptions.
+   * @param {any} defaults Object literal with default options.
+   * @param {any} userOptions Object literal with userOptions.
+   * @returns {any} Object literal where userOptions are merged into defaults.
    */
   function _mergeUserOptions(defaults, userOptions) {
     // Short circuit in case no valid config object is defined.
@@ -82,6 +86,7 @@ function initializeAccordion(userOptions) {
   /**
    * Work out valid startItem defined in userOptions or as optional ?item=N get parameter.
    * @param {number} nbrItems Total number of accordion items on the page.
+   * @returns {number} Returns a validated start item number [Default: 1]
    */
   function _getStartItem(nbrItems) {
     // Check if a start item was defined via optional ?item=N get parameter.
@@ -99,13 +104,15 @@ function initializeAccordion(userOptions) {
   }
   /**
    * Collapse previous expanded items depending on user settings.
-   * @param {event} event Element which triggered the click event.
+   * @param {HTMLElement} clickedElement Element which triggered the click event.
    */
-  function _autoCollapseExpandedItems(event) {
-    if (options.allowMultipleExpandedItems) return;
+  function _autoCollapseExpandedItems(clickedElement) {
+    if (options.allowMultipleExpandedItems) {
+      return;
+    }
     // Extract expanded headers and data-item attribute of clicked item.
     let expandedHeaders = document.querySelectorAll(options.accContainerId + " " + options.accHeaderElement + ".expanded");
-    const dataItem = event.target.getAttribute("data-item");
+    const dataItem = clickedElement.getAttribute("data-item");
     // Only proceed if clicked element has a valid data-item attribute.
     if (expandedHeaders.length == 0 || dataItem === null) return;
     // Collapse expanded items except clicked one.
@@ -118,22 +125,22 @@ function initializeAccordion(userOptions) {
   }
   /**
    * Toggle visibility state of actual clicked item depending on user settings.
-   * @param {event} event Element which triggered the click event.
+   * @param {HTMLElement} clickedElement Element which triggered the click event.
    */
-  function _toggleItemState(event) {
-    if (!options.allowCollapsingItemsOnClick && event.target.classList.contains("expanded")) {
+  function _toggleItemState(clickedElement) {
+    if (!options.allowCollapsingItemsOnClick && clickedElement.classList.contains("expanded")) {
       return;
     }
-    event.target.classList.toggle("collapsed");
-    event.target.classList.toggle("expanded");
+    clickedElement.classList.toggle("collapsed");
+    clickedElement.classList.toggle("expanded");
   }
   /**
    * Scroll viewport to actual clicked item depending on user settings.
-   * @param {event} event Element which triggered the click event.
+   * @param {HTMLElement} clickedElement Element which triggered the click event.
    */
-  function _scrollIntoView(event) {
+  function _scrollIntoView(clickedElement) {
     if (options.scrollIntoView) {
-      event.target.scrollIntoView();
+      clickedElement.scrollIntoView();
     }
   }
 }
