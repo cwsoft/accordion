@@ -4,13 +4,14 @@ Basic Accordion script without dependencies. Requires a "modern" browser (2016+)
 
 ## Installation
 
-Simply clone this repo or just copy the CSS and JS files of interest to your computer to start. Customization can be done by editing the relevant CSS and JS files. If you want to contribute or to heavily customize the script to your needs, consider installing the Node package `SASS` in conjunction with an editor like VS Code. Details about setting up a free development environment for Windows can be found in my [WDEV](https://github.com/cwsoft/WDEV) repo at Github.
+Simply clone this repo or just copy the CSS and JS files of interest to your computer to start. Customization can be done by editing the relevant CSS and JS files. If you want to contribute or to heavily customize the script to your needs, consider installing the [Node](https://nodejs.org/en/) packages `typescript` and `sass` in conjunction with an editor like VS Code. Details about setting up a free development environment for Windows can be found in my [WDEV](https://github.com/cwsoft/WDEV) repo at Github.
 
 ```bash
 # Clone this repo to your computer.
 git clone https://github.com/cwsoft/accordion.git
 
-# Recommended for developers to ease customization (requires Node.js to be installed).
+# Recommended for developers (requires Node.js).
+npm install -g typescript
 npm install -g sass
 ```
 
