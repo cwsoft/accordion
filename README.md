@@ -1,6 +1,6 @@
 # 👀 Basic Accordion (HTML5, CSS3, Javascript)
 
-Basic Accordion script without dependencies. Requires a "modern" browser (2016+) with CSS3 and ES5/6 support. A live demo is available at [http://die-laderin.de](http://die-laderin.de/kultur.html).
+Basic Accordion script without dependencies. Requires a "modern" browser (2015+) with CSS3 and ES6 support. A live demo is available at [http://die-laderin.de](http://die-laderin.de/kultur.html).
 
 ## Installation
 

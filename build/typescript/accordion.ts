@@ -34,13 +34,13 @@ function initializeAccordion(userOptions: IUserOptions): boolean {
    */
   function _setup(): boolean {
     // Extract accordion header elements from document.
-    const accHeaderSelector = options.accContainerId + " " + options.accHeaderElement;
+    const accHeaderSelector = `${options.accContainerId} ${options.accHeaderElement}`;
     const accHeaders = document.querySelectorAll(accHeaderSelector);
 
     // Ensure at least one valid accordion header element exists.
     const accItems: number = accHeaders.length;
     if (accItems === 0) {
-      console.log("Err: No matching '" + accHeaderSelector + "' elements found. Adapt config values to your site markup.");
+      console.log(`Err: No matching '${accHeaderSelector}' elements found. Adapt config values to your site markup.`);
       return false;
     }
 
@@ -130,7 +130,7 @@ function initializeAccordion(userOptions: IUserOptions): boolean {
     }
 
     // Extract expanded headers and data-item attribute of clicked item.
-    let expandedHeaders = document.querySelectorAll(options.accContainerId + " " + options.accHeaderElement + ".expanded");
+    let expandedHeaders = document.querySelectorAll(`${options.accContainerId} ${options.accHeaderElement}.expanded`);
     const dataItem = clickedElement.getAttribute("data-item");
 
     // Only proceed if clicked element has a valid data-item attribute.
